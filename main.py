@@ -10,13 +10,12 @@ register_matplotlib_converters()
 
 filename = 'dataset_1/NYC_collisions_tabular.csv'
 data = read_csv(filename, na_values='na')
-
+""""
 print(data.shape)
 figure(figsize=(4,2))
 values = {'nr records': data.shape[0], 'nr variables': data.shape[1]}
 bar_chart(list(values.keys()), list(values.values()), title='Nr of records vs nr variables')
-savefig('images/records_variables.png')
-#show()
+savefig('images/records_variables_dataset1.png')
 
 cat_vars = data.select_dtypes(include='object')
 data[cat_vars.columns] = data.select_dtypes(['object']).apply(lambda x: x.astype('category'))
@@ -57,9 +56,9 @@ print()
 counts = {}
 for tp in variable_types.keys():
     counts[tp] = len(variable_types[tp])
-figure(figsize=(4,2))
+figure(figsize=(6,3))
 bar_chart(list(counts.keys()), list(counts.values()), title='Nr of variables per type')
-savefig('images/variable_types.png')
+savefig('images/variable_types_dataset1.png')
 
 mv = {}
 for var in data:
@@ -67,14 +66,10 @@ for var in data:
     if nr > 0:
         mv[var] = nr
 
-figure()
+figure(figsize=(6,3))
+
 bar_chart(list(mv.keys()), list(mv.values()), title='Nr of missing values per variable',
             xlabel='variables', ylabel='nr missing values', rotation=True)
-savefig('images/mv.png')
-
-summary5 = data.describe()
-print(summary5)
-
-data.boxplot()
-savefig('images/global_boxplot.png')
+savefig('images/mv_dataset1.png',bbox_inches="tight")
 show()
+"""
