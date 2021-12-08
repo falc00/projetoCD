@@ -58,7 +58,7 @@ def set_locators(xvalues: list, ax: plt.Axes = None, rotation: bool=False):
         return None
     else:
         ax.set_xlim(xvalues[0], xvalues[-1])
-        ax.set_xticks(xvalues)
+       # ax.set_xticks(xvalues)
         return None
 
 
