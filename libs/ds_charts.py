@@ -1,19 +1,19 @@
 import math
-import itertools
+from itertools import product
+import matplotlib.pyplot as plt
 from numpy import arange, ndarray, newaxis, set_printoptions, isnan
 from pandas import DataFrame, concat, unique
-import matplotlib.pyplot as plt
 from matplotlib.dates import _reset_epoch_test_example, set_epoch, AutoDateLocator, AutoDateFormatter
 from warnings import simplefilter
-import sklearn.metrics as metrics
-import libs.config as cfg
+from sklearn.metrics import confusion_matrix, plot_roc_curve
+import config as cfg
 from datetime import datetime
 from sklearn.tree import export_graphviz
-import matplotlib.font_manager as fm
+from matplotlib.font_manager import FontProperties
 from sklearn.preprocessing import OneHotEncoder
 
 
-FONT_TEXT = fm.FontProperties(size=6)
+FONT_TEXT = FontProperties(size=6)
 TEXT_MARGIN = 0.05
 
 _reset_epoch_test_example()
@@ -50,7 +50,7 @@ def set_locators(xvalues: list, ax: plt.Axes = None, rotation: bool=False):
         ax.xaxis.set_major_formatter(AutoDateFormatter(locator, defaultfmt='%Y-%m-%d'))
         return None
     elif isinstance(xvalues[0], str):
-        ax.set_xticks(arange(len(xvalues)))
+        # ax.set_xticks(arange(len(xvalues)))
         if rotation:
             ax.set_xticklabels(xvalues, rotation='90', fontsize='small', ha='center')
         else:
@@ -58,7 +58,7 @@ def set_locators(xvalues: list, ax: plt.Axes = None, rotation: bool=False):
         return None
     else:
         ax.set_xlim(xvalues[0], xvalues[-1])
-       # ax.set_xticks(xvalues)
+        ax.set_xticks(xvalues)
         return None
 
 
@@ -113,9 +113,9 @@ def multiple_bar_chart(xvalues: list, yvalues: dict, ax: plt.Axes = None, title:
 
 
 def plot_evaluation_results(labels: ndarray, trn_y, prd_trn, tst_y, prd_tst):
-    cnf_mtx_trn = metrics.confusion_matrix(trn_y, prd_trn, labels)
+    cnf_mtx_trn = confusion_matrix(trn_y, prd_trn, labels=labels)
     tn_trn, fp_trn, fn_trn, tp_trn = cnf_mtx_trn.ravel()
-    cnf_mtx_tst = metrics.confusion_matrix(tst_y, prd_tst, labels)
+    cnf_mtx_tst = confusion_matrix(tst_y, prd_tst, labels=labels)
     tn_tst, fp_tst, fn_tst, tp_tst = cnf_mtx_tst.ravel()
 
     evaluation = {'Accuracy': [(tn_trn + tp_trn) / (tn_trn + tp_trn + fp_trn + fn_trn),
@@ -130,10 +130,9 @@ def plot_evaluation_results(labels: ndarray, trn_y, prd_trn, tst_y, prd_tst):
     plot_confusion_matrix(cnf_mtx_tst, labels, ax=axs[1], title='Test')
 
 
-def horizontal_bar_chart(elements: list, values: list, error: list, ax: plt.Axes = None, title: str = '', xlabel: str = '', ylabel: str = ''):
+def horizontal_bar_chart(elements: list, values: list, error: list = [], ax: plt.Axes = None, title: str = '', xlabel: str = '', ylabel: str = ''):
     ax = set_elements(ax=ax, title=title, xlabel=xlabel, ylabel=ylabel)
     y_pos = arange(len(elements))
-
     ax.barh(y_pos, values, xerr=error, align='center', error_kw={'lw': 0.5, 'ecolor': 'r'})
     ax.set_yticks(y_pos)
     ax.set_yticklabels(elements)
@@ -161,8 +160,8 @@ def plot_confusion_matrix(cnf_matrix: ndarray, classes_names: ndarray, ax: plt.A
     ax.imshow(cm, interpolation='nearest', cmap=cfg.cmap_blues)
 
     fmt = '.2f' if normalize else 'd'
-    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
-        ax.text(j, i, format(cm[i, j], fmt), color='w', horizontalalignment="center")
+    for i, j in product(range(cm.shape[0]), range(cm.shape[1])):
+        ax.text(j, i, format(cm[i, j], fmt), color='y', horizontalalignment="center")
 
 
 def plot_roc_chart(models: dict, tstX: ndarray, tstY: ndarray, ax: plt.Axes = None, target: str = 'class'):
@@ -174,7 +173,7 @@ def plot_roc_chart(models: dict, tstX: ndarray, tstY: ndarray, ax: plt.Axes = No
 
     ax.plot([0, 1], [0, 1], color='navy', label='random', linewidth=1, linestyle='--',  marker='')
     for clf in models.keys():
-        metrics.plot_roc_curve(models[clf], tstX, tstY, ax=ax, marker='', linewidth=1)
+        plot_roc_curve(models[clf], tstX, tstY, ax=ax, marker='', linewidth=1)
     ax.legend(loc="lower right")
 
 
