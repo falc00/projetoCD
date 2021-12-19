@@ -3,7 +3,7 @@ import matplotlib.colors as clrs
 
 from cycler import cycler
 
-plt.style.use('libs/dslabs.mplstyle')
+plt.style.use('dslabs.mplstyle')
 
 my_palette = {'yellow': '#ECD474', 'pale orange': '#E9AE4E', 'salmon': '#E2A36B', 'orange': '#F79522', 'dark orange': '#D7725E',
               'pale acqua': '#92C4AF', 'acqua': '#64B29E', 'marine': '#3D9EA9', 'green': '#10A48A', 'olive': '#99C244',
