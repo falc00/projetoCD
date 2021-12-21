@@ -1,0 +1,11 @@
+LOCATION
+	Country:
+		City:
+			Province
+
+CRASH_DATE
+	Year:
+		Quarter:
+			Month:
+				Weekday:
+					Day of month

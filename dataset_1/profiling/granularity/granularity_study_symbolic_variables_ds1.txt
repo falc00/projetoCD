@@ -1,0 +1,58 @@
+BODY_INJURY
+	Entire Body:
+		Upper Body:
+			Head
+			Face
+			Neck
+			Shoulder 
+			Arm
+			Hand
+			Back
+			Elbow
+		Lower Body:
+			Leg
+			Knee
+			Foot
+
+COMPLAINT
+	None Visible
+	Light:
+		Pain or Nausea
+		Minor Bleeding
+	Medium:
+		Fracture
+		Contusion - Bruise
+	Dangerous:
+		Severe Bleeding
+		Internal
+		Severe Lacerations
+		Whiplash
+
+CRASH_DATE
+	Winter:
+		21/Dec - 20/Mar
+	Summer:
+		21/Jun - 23/Sep
+	Autumn:
+		22/Sep - 21/Dec
+	Spring:
+		20/Mar - 21/Jun
+
+CRASH_DATE
+	Quarter:
+		Month:
+			Weekday:
+				Day of month
+
+CRASH_HOUR
+	Day:
+		07h-19h
+	Night:
+		20h-06h
+
+PERSON_AGE
+	Children
+	Young Adults
+	Adults
+	Seniors
+	Elderly
