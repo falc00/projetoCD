@@ -1,6 +1,7 @@
 # # exclude data and images folder
 /__pycache__/*
 /.idea/*
+/data/*
 /dataset_1/*
 /dataset_2/*
 /libs/*
