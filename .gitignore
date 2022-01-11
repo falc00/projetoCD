@@ -1,4 +1,4 @@
-# # exclude data and images folder
+# # exclude data folder
 /__pycache__
 /__pycache__/*
 /.idea
@@ -9,9 +9,3 @@
 !/dataset_1/.keep
 /dataset_2/*
 !/dataset_2/.keep
-# /lab3_imagens
-# /lab3_imagens/*
-# /lab4_imagens
-# /lab4_imagens/*
-# /lab5_imagens
-# /lab5_imagens/*
