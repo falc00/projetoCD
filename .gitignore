@@ -3,19 +3,15 @@
 /__pycache__/*
 /.idea
 /.idea/*
-/data
 /data/*
-/dataset_1
+!/data/.keep
 /dataset_1/*
-/dataset_2
+!/dataset_1/.keep
 /dataset_2/*
-/libs
-/libs/*
-/old
-/old/*
-/lab3_imagens
-/lab3_imagens/*
-/lab4_imagens
-/lab4_imagens/*
-/lab5_imagens
-/lab5_imagens/*
+!/dataset_2/.keep
+# /lab3_imagens
+# /lab3_imagens/*
+# /lab4_imagens
+# /lab4_imagens/*
+# /lab5_imagens
+# /lab5_imagens/*
