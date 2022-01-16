@@ -6,7 +6,7 @@ from pandas import DataFrame, concat, unique
 from matplotlib.dates import _reset_epoch_test_example, set_epoch, AutoDateLocator, AutoDateFormatter
 from warnings import simplefilter
 from sklearn.metrics import confusion_matrix, plot_roc_curve
-import libs.config as cfg
+import config as cfg
 from datetime import datetime
 from sklearn.tree import export_graphviz
 from matplotlib.font_manager import FontProperties
@@ -118,16 +118,17 @@ def plot_evaluation_results(labels: ndarray, trn_y, prd_trn, tst_y, prd_tst):
     cnf_mtx_tst = confusion_matrix(tst_y, prd_tst, labels=labels)
     tn_tst, fp_tst, fn_tst, tp_tst = cnf_mtx_tst.ravel()
 
-    evaluation = {'Accuracy': [(tn_trn + tp_trn) / (tn_trn + tp_trn + fp_trn + fn_trn),
-                               (tn_tst + tp_tst) / (tn_tst + tp_tst + fp_tst + fn_tst)],
-                  'Recall': [tp_trn / (tp_trn + fn_trn), tp_tst / (tp_tst + fn_tst)],
-                  'Specificity': [tn_trn / (tn_trn + fp_trn), tn_tst / (tn_tst + fp_tst)],
-                  'Precision': [tp_trn / (tp_trn + fp_trn), tp_tst / (tp_tst + fp_tst)]}
+    evaluation = {
+        'Accuracy': [(tn_trn + tp_trn) / (tn_trn + tp_trn + fp_trn + fn_trn),\
+            (tn_tst + tp_tst) / (tn_tst + tp_tst + fp_tst + fn_tst)],
+        'Recall': [tp_trn / (tp_trn + fn_trn), tp_tst / (tp_tst + fn_tst)],
+        'Specificity': [tn_trn / (tn_trn + fp_trn), tn_tst / (tn_tst + fp_tst)],
+        'Precision': [tp_trn / (tp_trn + fp_trn), tp_tst / (tp_tst + fp_tst)]}
 
     fig, axs = plt.subplots(1, 2, figsize=(2 * HEIGHT, HEIGHT))
-    multiple_bar_chart(['Train', 'Test'], evaluation, ax=axs[0], title="Model's performance over Train and Test sets",
-                       percentage=True)
+    multiple_bar_chart(['Train', 'Test'], evaluation, ax=axs[0], title="Model's performance over Train and Test sets", percentage=True)
     plot_confusion_matrix(cnf_mtx_tst, labels, ax=axs[1], title='Test')
+
 
 
 def horizontal_bar_chart(elements: list, values: list, error: list = [], ax: plt.Axes = None, title: str = '', xlabel: str = '', ylabel: str = ''):
@@ -272,3 +273,9 @@ def get_variable_types(df: DataFrame) -> dict:
             df[c].astype('category')
             variable_types['Symbolic'].append(c)
     return variable_types
+
+def plot_overfitting_study(xvalues, prd_trn, prd_tst, name, xlabel, ylabel):
+    evals = {'Train': prd_trn, 'Test': prd_tst}
+    plt.figure()
+    multiple_line_chart(xvalues, evals, ax = None, title=f'Overfitting {name}', xlabel=xlabel, ylabel=ylabel, percentage=True)
+    plt.savefig('images/overfitting_{name}.png')
