@@ -6,7 +6,7 @@ from pandas import DataFrame, concat, unique
 from matplotlib.dates import _reset_epoch_test_example, set_epoch, AutoDateLocator, AutoDateFormatter
 from warnings import simplefilter
 from sklearn.metrics import confusion_matrix, plot_roc_curve
-import config as cfg
+import libs.config as cfg
 from datetime import datetime
 from sklearn.tree import export_graphviz
 from matplotlib.font_manager import FontProperties
