@@ -272,3 +272,9 @@ def get_variable_types(df: DataFrame) -> dict:
             df[c].astype('category')
             variable_types['Symbolic'].append(c)
     return variable_types
+
+def plot_overfitting_study(xvalues, prd_trn, prd_tst, name, xlabel, ylabel):
+    evals = {'Train': prd_trn, 'Test': prd_tst}
+    plt.figure()
+    multiple_line_chart(xvalues, evals, ax = None, title=f'Overfitting {name}', xlabel=xlabel, ylabel=ylabel, percentage=True)
+    plt.savefig('lab7_images/overfitting_{name}.png')
