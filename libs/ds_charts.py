@@ -278,8 +278,4 @@ def plot_overfitting_study(xvalues, prd_trn, prd_tst, name, xlabel, ylabel):
     evals = {'Train': prd_trn, 'Test': prd_tst}
     plt.figure()
     multiple_line_chart(xvalues, evals, ax = None, title=f'Overfitting {name}', xlabel=xlabel, ylabel=ylabel, percentage=True)
-<<<<<<< HEAD
     plt.savefig('lab7_images/overfitting_{name}.png')
-=======
-    plt.savefig('images/overfitting_{name}.png')
->>>>>>> f24cdb41a5c40878d061ba71ac0eca47c98fe0c1

@@ -175,6 +175,7 @@ def outliers_imputation(new_dataset_2):
     new_dataset_2 = new_dataset_2[new_dataset_2.NO2_Std<60]
     new_dataset_2 = new_dataset_2[new_dataset_2.O3_Max<400]
     new_dataset_2 = new_dataset_2[new_dataset_2.O3_Std<125]
+    return new_dataset_2
     
 def scalling_zscore(new_dataset_2):
     variable_types = ds.get_variable_types(new_dataset_2)
