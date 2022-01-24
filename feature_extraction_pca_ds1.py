@@ -1,5 +1,5 @@
 from pandas import DataFrame, read_csv
-from matplotlib.pyplot import figure, xlabel, ylabel, scatter, show, subplots
+from matplotlib.pyplot import figure, savefig, xlabel, ylabel, scatter, show, subplots
 
 data: DataFrame = read_csv('data/nyc_collisions_scaled_zscore.csv')
 #data.pop('id') # we already pop ids
@@ -14,7 +14,8 @@ figure()
 xlabel(variables[eixo_y])
 ylabel(variables[eixo_z])
 scatter(data.iloc[:, eixo_y], data.iloc[:, eixo_z])
-show()
+#show()
+savefig("lab8_images/dataset_1/pca/first_image.png") #mudar nome
 
 #PCA
 
@@ -46,7 +47,8 @@ ax.bar(x_values, pca.explained_variance_ratio_, width=bwidth)
 ax.plot(pca.explained_variance_ratio_)
 for i, v in enumerate(pca.explained_variance_ratio_):
     ax.text(i, v+0.05, f'{v*100:.1f}', ha='center', fontweight='bold')
-show()
+#show()
+savefig("lab8_images/dataset_1/pca/explained_variance_ratio_ds1.png")
 
 transf = pca.transform(data)
 
@@ -58,4 +60,5 @@ axs[0,0].scatter(data.iloc[:, eixo_y], data.iloc[:, eixo_z])
 axs[0,1].set_xlabel('PC1')
 axs[0,1].set_ylabel('PC2')
 axs[0,1].scatter(transf[:, 0], transf[:, 1])
-show()
+#show()
+savefig("lab8_images/dataset_1/pca/data_transform_ds1.png")
